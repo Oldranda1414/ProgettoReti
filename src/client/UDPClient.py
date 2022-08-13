@@ -11,7 +11,7 @@ def inputReceiver():
     print("2) get the contents of a file from the server")
     print("3) upload a file on the server")
     print("4) exit")
-    command = input("Input a valid command[1/2/3/4] ")
+    command = input("Input a valid command[1/2/3/4]: ")
     if(command.isnumeric()):
         command = int(command)
         if command == 1 or command == 2 or command == 3 or command == 4:
@@ -26,7 +26,7 @@ def inputReceiver():
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 #set server address
-server_address = ('localhost', 12000)
+server_address = ("localhost", 12000)
 
 #starting main continious loop, which controlls the UPD communications with the server
 while True:
@@ -56,7 +56,6 @@ while True:
             #receiving the list from the server. the first word is the number of files in the list, then the filenames are listed
             data, server = sock.recvfrom(4096)
             data = data.decode()
-            print(data)
 
             #checking if the server sent a valid answer
             if data.isdigit():
@@ -94,7 +93,7 @@ while True:
             if data == "0":
 
                 #downloading the file on the client
-                print("file found on the server\n downloading the file...")
+                print("file found on the server\ndownloading the file...")
 
                 #receiving the file contents from the server
                 data, server = sock.recvfrom(4096)
@@ -108,7 +107,7 @@ while True:
 
             #if the flag is 1 then the file has not been found
             elif data == "1":
-                print("the file has not been found")
+                print("the file has not been found on the server")
 
             else:
                 print("an error has occured on the server.")

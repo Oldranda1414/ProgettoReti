@@ -18,18 +18,16 @@ while True:
 
     #printing the message once received
     print("message received: " + data)
+
     #incapsulating in try so that in case of any internal errors the server can send them to the client
     try:
 
         if data == "get list":
             
-            print("inside the correct if")
             #fectching the file list and number of files on the server
             filePath = os.path.join(os.getcwd(), "server_files")
             fileList = os.listdir(filePath)
             numberFiles = len(fileList)
-            print(str(numberFiles))
-            print(str(fileList))
 
             #sending the data to the client
             message = str(numberFiles)
