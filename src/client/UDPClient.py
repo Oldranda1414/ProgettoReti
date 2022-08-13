@@ -1,4 +1,3 @@
-from distutils.log import set_verbosity
 import socket
 import os
 import sys
@@ -23,7 +22,7 @@ def inputReceiver():
         return 0
 
 
-# initialize socket
+#initialize socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 #set server address
@@ -56,21 +55,21 @@ while True:
 
             #receiving the list from the server. the first word is the number of files in the list, then the filenames are listed
             data, server = sock.recvfrom(4096)
-            data.decode()
+            data = data.decode()
+            print(data)
 
             #checking if the server sent a valid answer
-            if (data.split[1]).isnumerical():
-
-                data = data.split()
+            if data.isdigit():
 
                 #printing the number of files
-                print("there are " + data[1] + "files on the server")
+                print("there are " + str(data) + " files on the server")
+
+                #waiting for server to send the list of files
+                data, server = sock.recvfrom(4096)
+                data = data.decode()
 
                 #printing the filenames
-                numberFiles = int(data[1])
-                print("there are " + numberFiles + " files in the server:")
-                for i in range(2,  + 1):
-                    print(data[i])
+                print(str(data))
 
             #printing the error message of the server, if the awnswer wasn't valid
             else:
@@ -101,9 +100,9 @@ while True:
                 data, server = sock.recvfrom(4096)
                 data = data.decode()
                 #creating a new file with as name the fileName and writing the contents
-                fileFolder = os.path.join(os.getcwd(),'file')
+                fileFolder = os.path.join(os.getcwd(),"client_files")
                 filePath = os.path.join(fileFolder,fileName)
-                newFile = open(filePath, 'w')
+                newFile = open(filePath, "w")
                 newFile.write(data)
                 print("file downloaded")
 
@@ -122,7 +121,9 @@ while True:
             fileName = input("input the name of the file you want to upload: ")
 
             #reading the file
-            file = open(fileName, "r+")
+            fileFolder = os.path.join(os.getcwd(), "client_files")
+            filePath = os.path.join(fileFolder, fileName)
+            file = open(filePath, "r+")
             data = file.read()
 
             #sending the request, filename and file contents to the server
