@@ -46,7 +46,7 @@ while True:
             filePath = os.path.join(fileFolder, data.decode())
 
             #if the requested file is present on the server, it is sent
-            if os.path.exists(filePath):
+            if os.path.exists(filePath) and data.decode() != "":
 
                 #sending flag to client
                 message = "0"
