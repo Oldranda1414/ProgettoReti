@@ -60,6 +60,7 @@ while True:
             else:
                 
                 #if the file is not present on the server, the server sends an error flag to the client
+                print("file requested not found on server")
                 message = "1"
                 sock.sendto(message.encode(), address)
 
@@ -99,3 +100,5 @@ while True:
         message = ("server error\n" + str(info))
         sock.sendto(message.encode(), address)
         sock.close()
+
+    print("\n\n\n\n")
